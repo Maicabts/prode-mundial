@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚽ PRODE MUNDIAL 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde: #00c853;
+  --verde-oscuro: #007a33;
+  --amarillo: #ffd600;
+  --rojo: #e53935;
+  --azul: #0d47a1;
+  --fondo: #0a0f1a;
+  --fondo2: #111827;
+  --fondo3: #1e2a3a;
+  --texto: #e8edf4;
+  --texto2: #8899aa;
+  --borde: #2a3a4a;
+  --card: #162030;
+  --highlight: #ffd600;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: 'Barlow', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ========= BACKGROUND ========= */
+.bg-field {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(0,200,83,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,214,0,0.05) 0%, transparent 50%),
+    var(--fondo);
+}
+.bg-lines {
+  position: fixed; inset:0; z-index:0; opacity:0.04;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 60px, #fff 60px, #fff 61px),
+    repeating-linear-gradient(90deg, transparent, transparent 80px, #fff 80px, #fff 81px);
+}
+
+/* ========= HEADER ========= */
+header {
+  position: relative; z-index: 10;
+  background: linear-gradient(135deg, #0d1f0d 0%, #0a1628 100%);
+  border-bottom: 3px solid var(--amarillo);
+  padding: 0;
+}
+.header-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 20px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  flex-wrap: wrap;
+}
+.logo-zone { display: flex; align-items: center; gap: 16px; }
+.logo-ball {
+  font-size: 48px; line-height:1;
+  animation: spin 8s linear infinite;
+  display:inline-block;
+}
+@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.logo-text h1 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(28px, 5vw, 52px);
+  letter-spacing: 4px;
+  color: var(--amarillo);
+  text-shadow: 0 0 30px rgba(255,214,0,0.4);
+  line-height: 1;
+}
+.logo-text .sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--verde); margin-top: 2px;
+}
+.header-nav { display:flex; gap:8px; flex-wrap:wrap; }
+.nav-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing:2px; text-transform:uppercase;
+  padding: 8px 18px; border-radius: 4px; border: 2px solid transparent;
+  cursor: pointer; transition: all 0.2s; background: transparent; color: var(--texto2);
+}
+.nav-btn:hover, .nav-btn.active {
+  border-color: var(--amarillo); color: var(--amarillo);
+  background: rgba(255,214,0,0.08);
+}
+.nav-btn.primary {
+  background: var(--verde); color: #000; border-color: var(--verde);
+}
+.nav-btn.primary:hover { background: #00e676; border-color: #00e676; }
+
+/* ========= TICKER ========= */
+.ticker-wrap {
+  position: relative; z-index: 10;
+  background: var(--amarillo); overflow: hidden; height: 36px;
+  display: flex; align-items: center;
+}
+.ticker-label {
+  background: #000; color: var(--amarillo);
+  font-family: 'Bebas Neue', cursive; font-size:16px; letter-spacing:2px;
+  padding: 0 16px; height:100%; display:flex; align-items:center;
+  flex-shrink:0; z-index:2;
+}
+.ticker-inner {
+  display: flex; gap: 60px; white-space: nowrap;
+  animation: ticker 30s linear infinite;
+  color: #000; font-family:'Barlow Condensed',sans-serif;
+  font-weight: 700; font-size: 14px; letter-spacing: 1px;
+}
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.ticker-item::before { content: "⚽  "; }
+
+/* ========= MAIN LAYOUT ========= */
+main {
+  position: relative; z-index: 5;
+  max-width: 1100px; margin: 0 auto; padding: 32px 24px;
+}
+.section { display: none; }
+.section.active { display: block; }
+
+/* ========= CARDS ========= */
+.card {
+  background: var(--card); border: 1px solid var(--borde);
+  border-radius: 12px; padding: 28px;
+  margin-bottom: 24px;
+}
+.card-title {
+  font-family: 'Bebas Neue', cursive; font-size: 26px; letter-spacing: 3px;
+  color: var(--amarillo); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+/* ========= FORMS ========= */
+.form-group { margin-bottom: 16px; }
+.form-label {
+  display: block; font-size: 12px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--texto2);
+  margin-bottom: 6px;
+}
+.form-input {
+  width: 100%; background: var(--fondo2); border: 1px solid var(--borde);
+  border-radius: 6px; padding: 12px 16px; color: var(--texto);
+  font-family: 'Barlow', sans-serif; font-size: 15px;
+  transition: border-color 0.2s;
+}
+.form-input:focus { outline: none; border-color: var(--verde); }
+.form-input::placeholder { color: var(--texto2); }
+.btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 13px 32px; border-radius: 6px; border: none;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-green { background: var(--verde); color: #000; }
+.btn-green:hover { background: #00e676; transform: translateY(-1px); }
+.btn-yellow { background: var(--amarillo); color: #000; }
+.btn-yellow:hover { background: #ffe033; transform: translateY(-1px); }
+.btn-outline { background: transparent; border: 2px solid var(--borde); color: var(--texto); }
+.btn-outline:hover { border-color: var(--verde); color: var(--verde); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+/* ========= MATCHES GRID ========= */
+.matches-section h2 {
+  font-family: 'Bebas Neue', cursive; font-size: 20px; letter-spacing: 3px;
+  color: var(--texto2); margin: 28px 0 14px;
+  border-left: 4px solid var(--verde); padding-left: 12px;
+}
+.match-card {
+  background: var(--fondo2); border: 1px solid var(--borde);
+  border-radius: 10px; padding: 18px 20px; margin-bottom: 10px;
+  display: grid; grid-template-columns: 1fr auto 80px auto 1fr;
+  align-items: center; gap: 12px;
+  transition: border-color 0.2s;
+}
+.match-card:hover { border-color: var(--verde); }
+.match-card.locked { opacity: 0.7; pointer-events: none; }
+.team-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+}
+.team-local { text-align: right; }
+.team-visit { text-align: left; }
+.score-input {
+  width: 52px; background: var(--fondo3); border: 2px solid var(--borde);
+  border-radius: 6px; padding: 8px 4px; color: var(--amarillo);
+  font-family: 'Bebas Neue', cursive; font-size: 28px; text-align: center;
+  transition: border-color 0.2s;
+}
+.score-input:focus { outline: none; border-color: var(--amarillo); }
+.score-sep {
+  font-family: 'Bebas Neue', cursive; font-size: 28px;
+  color: var(--texto2); text-align: center;
+}
+.match-meta {
+  font-size: 11px; color: var(--texto2); letter-spacing: 1px;
+  text-transform: uppercase; text-align: center; margin-top: 4px;
+}
+.match-result-badge {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700;
+  padding: 3px 8px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+}
+.badge-win { background: rgba(0,200,83,0.2); color: var(--verde); }
+.badge-exact { background: rgba(255,214,0,0.2); color: var(--amarillo); }
+.badge-goal { background: rgba(13,71,161,0.3); color: #64b5f6; }
+.badge-miss { background: rgba(229,57,53,0.15); color: #ef9a9a; }
+
+/* ========= TABLA ========= */
+.tabla-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead tr {
+  background: var(--fondo3);
+  font-family: 'Barlow Condensed', sans-serif; font-size: 12px;
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--texto2);
+}
+thead th { padding: 12px 16px; text-align: left; border-bottom: 2px solid var(--borde); }
+tbody tr { border-bottom: 1px solid var(--borde); transition: background 0.15s; }
+tbody tr:hover { background: var(--fondo3); }
+tbody td { padding: 14px 16px; font-size: 15px; }
+.rank-num {
+  font-family: 'Bebas Neue', cursive; font-size: 22px; color: var(--texto2);
+}
+.rank-1 .rank-num { color: var(--amarillo); }
+.rank-2 .rank-num { color: #c0c0c0; }
+.rank-3 .rank-num { color: #cd7f32; }
+.team-alias {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700;
+}
+.pts {
+  font-family: 'Bebas Neue', cursive; font-size: 28px; color: var(--verde);
+}
+.pts-detail { font-size: 12px; color: var(--texto2); }
+
+/* ========= PRONOS PUBLICOS ========= */
+.pronos-table th, .pronos-table td { padding: 10px 12px; font-size: 13px; }
+.prono-cell { text-align: center; }
+.prono-score {
+  font-family: 'Bebas Neue', cursive; font-size: 18px;
+  color: var(--texto);
+}
+.prono-score.correct-exact { color: var(--amarillo); }
+.prono-score.correct-win { color: var(--verde); }
+.prono-score.partial { color: #64b5f6; }
+.prono-score.wrong { color: var(--texto2); opacity: 0.5; }
+
+/* ========= MEMES TICKER ========= */
+.memes-bar {
+  background: linear-gradient(90deg, #0d1f0d, #0a1628);
+  border: 1px solid var(--verde-oscuro); border-radius: 10px;
+  padding: 16px 20px; margin-bottom: 24px;
+  overflow: hidden; position: relative;
+}
+.meme-text {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 16px;
+  color: var(--verde); font-weight: 600;
+  animation: fadeInOut 4s ease-in-out infinite;
+}
+@keyframes fadeInOut {
+  0%,100%{opacity:0;transform:translateY(4px)}
+  20%,80%{opacity:1;transform:translateY(0)}
+}
+
+/* ========= MODAL ========= */
+.modal-bg {
+  display: none; position: fixed; inset:0; z-index:100;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+}
+.modal-bg.open { display: flex; }
+.modal {
+  background: var(--card); border: 1px solid var(--borde);
+  border-radius: 16px; padding: 36px; max-width: 480px; width: 90%;
+  position: relative;
+}
+.modal h2 {
+  font-family: 'Bebas Neue', cursive; font-size: 30px; letter-spacing: 3px;
+  color: var(--amarillo); margin-bottom: 20px;
+}
+.modal-close {
+  position: absolute; top:16px; right:16px;
+  background: none; border: none; color: var(--texto2);
+  font-size: 22px; cursor: pointer; line-height:1;
+}
+.modal-close:hover { color: var(--texto); }
+
+/* ========= ALERTS ========= */
+.alert {
+  border-radius: 8px; padding: 12px 16px; margin-bottom: 16px;
+  font-size: 14px; font-weight: 500;
+}
+.alert-success { background: rgba(0,200,83,0.15); border: 1px solid var(--verde); color: var(--verde); }
+.alert-error { background: rgba(229,57,53,0.15); border: 1px solid var(--rojo); color: #ef5350; }
+.alert-info { background: rgba(255,214,0,0.1); border: 1px solid rgba(255,214,0,0.4); color: var(--amarillo); }
+
+/* ========= ADMIN PANEL ========= */
+.admin-table thead th { background: var(--fondo3); }
+.admin-actions { display: flex; gap: 8px; }
+.btn-sm {
+  font-size: 11px; padding: 5px 12px; letter-spacing:1px;
+}
+.status-badge {
+  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.status-pending { background: rgba(255,214,0,0.15); color: var(--amarillo); }
+.status-active { background: rgba(0,200,83,0.15); color: var(--verde); }
+.status-rejected { background: rgba(229,57,53,0.15); color: #ef5350; }
+
+/* ========= LOADING ========= */
+.loading {
+  display: flex; align-items:center; justify-content:center;
+  gap: 10px; padding: 40px; color: var(--texto2);
+  font-family: 'Barlow Condensed'; font-size: 16px; letter-spacing:2px;
+}
+.spinner {
+  width: 24px; height: 24px; border: 3px solid var(--borde);
+  border-top-color: var(--verde); border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ========= STATS ROW ========= */
+.stats-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px; margin-bottom: 28px;
+}
+.stat-box {
+  background: var(--fondo2); border: 1px solid var(--borde);
+  border-radius: 10px; padding: 20px; text-align: center;
+}
+.stat-num {
+  font-family: 'Bebas Neue', cursive; font-size: 40px; line-height: 1;
+  color: var(--amarillo);
+}
+.stat-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto2);
+  margin-top: 4px;
+}
+
+/* ========= PUNTOS REGLAS ========= */
+.reglas-list { list-style: none; }
+.regla-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 0; border-bottom: 1px solid var(--borde);
+}
+.regla-pts {
+  font-family: 'Bebas Neue', cursive; font-size: 32px; line-height:1;
+  min-width: 48px; text-align: center;
+}
+.regla-pts.pts3 { color: var(--verde); }
+.regla-pts.pts5 { color: var(--amarillo); }
+.regla-pts.pts1 { color: #64b5f6; }
+.regla-desc strong {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight:700;
+  display: block; margin-bottom: 3px;
+}
+.regla-desc span { font-size: 13px; color: var(--texto2); }
+
+/* ========= GRUPOS ========= */
+.grupos-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px;
+}
+.grupo-card {
+  background: var(--fondo2); border: 1px solid var(--borde); border-radius: 10px;
+  overflow: hidden;
+}
+.grupo-header {
+  background: var(--fondo3); padding: 10px 16px;
+  font-family: 'Bebas Neue', cursive; font-size: 18px; letter-spacing: 2px;
+  color: var(--amarillo); border-bottom: 1px solid var(--borde);
+}
+.grupo-body { padding: 0; }
+.grupo-match {
+  padding: 10px 16px; border-bottom: 1px solid var(--borde);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px;
+}
+.grupo-match:last-child { border-bottom: none; }
+.gm-teams { font-family: 'Barlow Condensed'; font-weight: 600; font-size: 14px; }
+.gm-score {
+  font-family: 'Bebas Neue'; font-size: 20px; color: var(--verde);
+  min-width: 60px; text-align: center;
+}
+.gm-score.pending { color: var(--borde); }
+.gm-date { font-size: 11px; color: var(--texto2); letter-spacing: 1px; }
+
+/* ========= RESPONSIVE ========= */
+@media(max-width:640px) {
+  .match-card { grid-template-columns: 1fr auto 60px auto 1fr; gap: 6px; padding: 12px; }
+  .team-name { font-size: 13px; }
+  .score-input { width: 40px; font-size: 22px; padding: 6px 2px; }
+  .score-sep { font-size: 22px; }
+  header .header-nav { display: none; }
+}
+
+/* ========= TABS ========= */
+.tabs { display: flex; gap: 4px; margin-bottom: 24px; flex-wrap: wrap; }
+.tab-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 8px 18px; border-radius: 6px; border: 2px solid var(--borde);
+  cursor: pointer; background: transparent; color: var(--texto2); transition: all 0.2s;
+}
+.tab-btn:hover { border-color: var(--verde); color: var(--verde); }
+.tab-btn.active { background: var(--verde); color: #000; border-color: var(--verde); }
+
+/* ========= USER INFO BAR ========= */
+.user-bar {
+  background: var(--fondo3); border: 1px solid var(--borde);
+  border-radius: 8px; padding: 12px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; flex-wrap: wrap; gap: 10px;
+}
+.user-bar-name {
+  font-family: 'Barlow Condensed'; font-size: 18px; font-weight: 700;
+  color: var(--amarillo);
+}
+.user-bar-pts { font-size: 13px; color: var(--texto2); }
+.user-bar-pts strong { color: var(--verde); font-size: 18px; }
+
+/* ========= TROPHY ICONS ========= */
+.trophy-1::before { content: "🏆 "; }
+.trophy-2::before { content: "🥈 "; }
+.trophy-3::before { content: "🥉 "; }
+</style>
+</head>
+<body>
+
+<div class="bg-field"></div>
+<div class="bg-lines"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo-zone">
+      <span class="logo-ball">⚽</span>
+      <div class="logo-text">
+        <h1>PRODE MUNDIAL</h1>
+        <div class="sub">★ USA · CANADA · MEXICO 2026 ★</div>
+      </div>
+    </div>
+    <nav class="header-nav" id="mainNav">
+      <button class="nav-btn active" onclick="showSection('inicio')">Inicio</button>
+      <button class="nav-btn" onclick="showSection('partidos')" id="navPartidos">Mis Pronós</button>
+      <button class="nav-btn" onclick="showSection('tabla')">Tabla</button>
+      <button class="nav-btn" onclick="showSection('pronos')">Pronós Todos</button>
+      <button class="nav-btn" onclick="showSection('grupos')">Grupos</button>
+      <button class="nav-btn primary" onclick="openModal('modalLogin')" id="btnLoginHeader">Entrar</button>
+    </nav>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-label">⚡ NOVEDADES</div>
+  <div style="overflow:hidden; flex:1;">
+    <div class="ticker-inner" id="tickerInner">
+      <span class="ticker-item">¡El Prode Mundial 2026 está abierto! Registrate y cargá tus pronós</span>
+      <span class="ticker-item">El que predice 1-0 para todos los partidos NO está usando el cerebro</span>
+      <span class="ticker-item">¿Ya pusiste tus pronós? No te quedes sin cargar</span>
+      <span class="ticker-item">El que sale último paga asado 🥩</span>
+      <span class="ticker-item">Qatar 2022: la Argentina campeona del mundo 🇦🇷</span>
+      <span class="ticker-item">¡El Prode Mundial 2026 está abierto! Registrate y cargá tus pronós</span>
+      <span class="ticker-item">El que predice 1-0 para todos los partidos NO está usando el cerebro</span>
+      <span class="ticker-item">¿Ya pusiste tus pronós? No te quedes sin cargar</span>
+      <span class="ticker-item">El que sale último paga asado 🥩</span>
+      <span class="ticker-item">Qatar 2022: la Argentina campeona del mundo 🇦🇷</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ======== SECCIÓN INICIO ======== -->
+<div class="section active" id="sec-inicio">
+  <!-- Meme del día -->
+  <div class="memes-bar">
+    <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--texto2);margin-bottom:6px;font-family:'Barlow Condensed'">📢 MEME DEL DÍA</div>
+    <div class="meme-text" id="memeDelDia">Cargando novedad...</div>
+  </div>
+
+  <!-- Stats generales -->
+  <div class="stats-row" id="statsRow">
+    <div class="stat-box"><div class="stat-num" id="statJugadores">—</div><div class="stat-label">Jugadores</div></div>
+    <div class="stat-box"><div class="stat-num" id="statPartidos">48</div><div class="stat-label">Partidos</div></div>
+    <div class="stat-box"><div class="stat-num" id="statJugados">0</div><div class="stat-label">Jugados</div></div>
+    <div class="stat-box"><div class="stat-num" id="statLider">—</div><div class="stat-label">Líder 🏆</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;flex-wrap:wrap">
+    <!-- Reglas de puntaje -->
+    <div class="card" style="grid-column: span 1">
+      <div class="card-title">📋 Sistema de Puntos</div>
+      <ul class="reglas-list">
+        <li class="regla-item">
+          <div class="regla-pts pts5">5</div>
+          <div class="regla-desc">
+            <strong>Resultado Exacto</strong>
+            <span>Acertás el marcador exacto (ej: 2-1). ¡Máxima puntuación!</span>
+          </div>
+        </li>
+        <li class="regla-item">
+          <div class="regla-pts pts3">3</div>
+          <div class="regla-desc">
+            <strong>Ganador / Empate</strong>
+            <span>Acertás quién gana o si empata, sin importar los goles.</span>
+          </div>
+        </li>
+        <li class="regla-item">
+          <div class="regla-pts pts1">1</div>
+          <div class="regla-desc">
+            <strong>Goles de un equipo</strong>
+            <span>Por cada equipo cuyos goles acertés exacto, aunque el resultado no sea correcto.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Cómo jugar -->
+    <div class="card" style="grid-column: span 1">
+      <div class="card-title">🎮 Cómo Jugar</div>
+      <ol style="padding-left:20px;line-height:2;color:var(--texto2);font-size:15px">
+        <li>Registrate con tu mail y elegí un nombre de equipo divertido</li>
+        <li>El admin aprueba tu inscripción (te llegará un aviso)</li>
+        <li>Antes de que arranque el Mundial, cargá tus pronós para todos los partidos de la fase de grupos</li>
+        <li>Los resultados se actualizan automáticamente</li>
+        <li>¡Seguí la tabla y sufría con cada partido!</li>
+      </ol>
+      <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-green" onclick="openModal('modalRegistro')">🙋 Inscribirme</button>
+        <button class="btn btn-outline" onclick="openModal('modalLogin')">🔑 Tengo cuenta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top 3 mini -->
+  <div class="card">
+    <div class="card-title">🏆 Podio Actual</div>
+    <div id="podioMini"><div class="loading"><div class="spinner"></div> Cargando podio...</div></div>
+  </div>
+</div>
+
+<!-- ======== SECCIÓN MIS PRONÓSTICOS ======== -->
+<div class="section" id="sec-partidos">
+  <div id="userBarZone"></div>
+  <div id="pronos-alert"></div>
+  <div class="matches-section" id="matchesContainer">
+    <div class="loading"><div class="spinner"></div> Cargando partidos...</div>
+  </div>
+  <div id="pronosFooter" style="text-align:center;margin-top:24px;display:none">
+    <button class="btn btn-green" id="btnGuardar" onclick="guardarPronos()">💾 Guardar todos mis pronósticos</button>
+    <div style="font-size:12px;color:var(--texto2);margin-top:8px">Los pronósticos se cierran cuando inicia cada partido</div>
+  </div>
+</div>
+
+<!-- ======== SECCIÓN TABLA ======== -->
+<div class="section" id="sec-tabla">
+  <div class="card">
+    <div class="card-title">🏆 Tabla de Posiciones</div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Equipo</th>
+            <th>Jugador</th>
+            <th>PTS</th>
+            <th style="text-align:center">Exactos</th>
+            <th style="text-align:center">Ganadores</th>
+            <th style="text-align:center">Goles</th>
+          </tr>
+        </thead>
+        <tbody id="tablaBody">
+          <tr><td colspan="7"><div class="loading"><div class="spinner"></div> Cargando...</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--texto2)">
+      <span><span class="match-result-badge badge-exact">Exacto</span> 5 pts</span>
+      <span><span class="match-result-badge badge-win">Ganador</span> 3 pts</span>
+      <span><span class="match-result-badge badge-goal">Goles</span> 1 pt c/u</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SECCIÓN PRONÓS DE TODOS ======== -->
+<div class="section" id="sec-pronos">
+  <div class="card">
+    <div class="card-title">👀 Pronósticos de Todos</div>
+    <div class="alert alert-info">Los pronósticos son públicos y quedan registrados — ¡no vale cambiarlos después!</div>
+    <div class="tabs" id="pronosTabs"></div>
+    <div class="tabla-wrap">
+      <div id="pronosContainer"><div class="loading"><div class="spinner"></div> Cargando...</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SECCIÓN GRUPOS ======== -->
+<div class="section" id="sec-grupos">
+  <div class="card">
+    <div class="card-title">🌍 Fase de Grupos — Partidos y Resultados</div>
+    <div class="grupos-grid" id="gruposContainer">
+      <div class="loading"><div class="spinner"></div> Cargando...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SECCIÓN ADMIN ======== -->
+<div class="section" id="sec-admin">
+  <div class="card">
+    <div class="card-title">⚙️ Panel Admin</div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="adminTab('usuarios')">Usuarios</button>
+      <button class="tab-btn" onclick="adminTab('resultados')">Cargar Resultados</button>
+      <button class="tab-btn" onclick="adminTab('recalcular')">Recalcular Puntajes</button>
+    </div>
+    <div id="adminContent"><div class="loading"><div class="spinner"></div></div></div>
+  </div>
+</div>
+
+</main>
+
+<!-- ======== MODAL REGISTRO ======== -->
+<div class="modal-bg" id="modalRegistro">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modalRegistro')">✕</button>
+    <h2>🙋 Inscribirse</h2>
+    <div id="alertRegistro"></div>
+    <div class="form-group">
+      <label class="form-label">Tu nombre real</label>
+      <input class="form-input" id="regNombre" type="text" placeholder="Juan Pérez">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tu mail</label>
+      <input class="form-input" id="regMail" type="email" placeholder="juan@mail.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Nombre de equipo (¡que sea divertido!)</label>
+      <input class="form-input" id="regAlias" type="text" placeholder="Ej: El Descendido, Los Caídos del Mapa...">
+      <div style="font-size:11px;color:var(--texto2);margin-top:4px">⚡ Sugerencias: Los Ojos Cerrados · El Astrólogo · Team Pálpito · Los del VAR · El Cuaderno de Bilardo</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Contraseña</label>
+      <input class="form-input" id="regPass" type="password" placeholder="Mínimo 6 caracteres">
+    </div>
+    <div style="margin-top:20px;display:flex;gap:12px">
+      <button class="btn btn-green" onclick="registrarse()">Enviar solicitud</button>
+      <button class="btn btn-outline" onclick="closeModal('modalRegistro');openModal('modalLogin')">Ya tengo cuenta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======== MODAL LOGIN ======== -->
+<div class="modal-bg" id="modalLogin">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modalLogin')">✕</button>
+    <h2>🔑 Entrar</h2>
+    <div id="alertLogin"></div>
+    <div class="form-group">
+      <label class="form-label">Mail</label>
+      <input class="form-input" id="loginMail" type="email" placeholder="tu@mail.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Contraseña</label>
+      <input class="form-input" id="loginPass" type="password" placeholder="Tu contraseña">
+    </div>
+    <div style="margin-top:20px;display:flex;gap:12px">
+      <button class="btn btn-green" onclick="login()">Entrar</button>
+      <button class="btn btn-outline" onclick="closeModal('modalLogin');openModal('modalRegistro')">Registrarme</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIG — reemplazá con la URL de tu Apps Script desplegado
+// ============================================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDoR5CVZrL49qnSP20uJ1wBDkHjuNJodcaF2lPBm6WUTuNh459y7zssHMVkf1yEousqQ/exec';
+
+// ============================================================
+// ESTADO
+// ============================================================
+let currentUser = JSON.parse(localStorage.getItem('prode_user') || 'null');
+let allMatches = [];
+let allPronos = {};
+let currentAdminTab = 'usuarios';
+
+// ============================================================
+// MEMES / FRASES
+// ============================================================
+const MEMES = [
+  "🤔 Si Argentina no gana, el prode no sirve.",
+  "📊 Estadística: el 83% de los pronós del prode son puro deseo.",
+  "💀 El que cargó 0-0 para todos los partidos: muy valiente, muy equivocado.",
+  "🔥 Brasil siempre es favorito y siempre decepciona. Anotalo.",
+  "🧙 Hay un señor que siempre adivina. Lo odiamos a ese.",
+  "⚽ 48 partidos × wrongos = muchos puntos perdidos.",
+  "😅 El VAR no existe en el Prode. Acá el resultado es el resultado.",
+  "🤡 El que dice 'yo al fútbol no le entiendo pero puse algo': siempre sale primero.",
+  "📺 Regla de oro: nunca cargar pronós después de las cervezas.",
+  "🏆 El último puesto invita el asado. Está escrito en algún lado.",
+];
+
+// ============================================================
+// INICIALIZACIÓN
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  rotateMeme();
+  setInterval(rotateMeme, 5000);
+  actualizarHeaderLogin();
+  cargarStats();
+  if (currentUser) cargarDatos();
+});
+
+function rotateMeme() {
+  const el = document.getElementById('memeDelDia');
+  el.style.animation = 'none';
+  el.offsetHeight;
+  el.style.animation = '';
+  el.textContent = MEMES[Math.floor(Math.random() * MEMES.length)];
+}
+
+// ============================================================
+// API CALLS
+// ============================================================
+async function api(action, data = {}) {
+  try {
+    const url = new URL(SCRIPT_URL);
+    url.searchParams.set('action', action);
+    Object.entries(data).forEach(([k, v]) => url.searchParams.set(k, typeof v === 'object' ? JSON.stringify(v) : v));
+    const res = await fetch(url.toString());
+    return await res.json();
+  } catch (e) {
+    console.error(e);
+    return { ok: false, error: e.message };
+  }
+}
+
+async function apiPost(action, data = {}) {
+  try {
+    const body = new URLSearchParams({ action, ...Object.fromEntries(Object.entries(data).map(([k,v]) => [k, typeof v === 'object' ? JSON.stringify(v) : v])) });
+    const res = await fetch(SCRIPT_URL, { method: 'POST', body });
+    return await res.json();
+  } catch (e) {
+    console.error(e);
+    return { ok: false, error: e.message };
+  }
+}
+
+// ============================================================
+// NAVEGACIÓN
+// ============================================================
+function showSection(sec) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + sec).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+  // Cargar datos de la sección
+  if (sec === 'partidos') {
+    if (!currentUser) { openModal('modalLogin'); return; }
+    cargarMisPartidos();
+  }
+  if (sec === 'tabla') cargarTabla();
+  if (sec === 'pronos') cargarPronosTodos();
+  if (sec === 'grupos') cargarGrupos();
+  if (sec === 'admin') cargarAdmin();
+}
+
+// ============================================================
+// AUTH
+// ============================================================
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function actualizarHeaderLogin() {
+  const btn = document.getElementById('btnLoginHeader');
+  if (currentUser) {
+    btn.textContent = '👤 ' + (currentUser.alias || currentUser.nombre);
+    btn.onclick = logout;
+    if (currentUser.isAdmin) {
+      const nav = document.getElementById('mainNav');
+      if (!document.getElementById('navAdmin')) {
+        const adminBtn = document.createElement('button');
+        adminBtn.className = 'nav-btn'; adminBtn.id = 'navAdmin';
+        adminBtn.textContent = '⚙️ Admin';
+        adminBtn.onclick = () => showSection('admin');
+        nav.insertBefore(adminBtn, btn);
+      }
+    }
+  } else {
+    btn.textContent = 'Entrar'; btn.onclick = () => openModal('modalLogin');
+  }
+}
+
+async function registrarse() {
+  const nombre = document.getElementById('regNombre').value.trim();
+  const mail = document.getElementById('regMail').value.trim();
+  const alias = document.getElementById('regAlias').value.trim();
+  const pass = document.getElementById('regPass').value;
+  const alertEl = document.getElementById('alertRegistro');
+
+  if (!nombre || !mail || !alias || !pass) {
+    alertEl.innerHTML = '<div class="alert alert-error">Completá todos los campos</div>'; return;
+  }
+  if (pass.length < 6) {
+    alertEl.innerHTML = '<div class="alert alert-error">La contraseña debe tener al menos 6 caracteres</div>'; return;
+  }
+
+  alertEl.innerHTML = '<div class="alert alert-info">Enviando solicitud...</div>';
+  const r = await apiPost('registro', { nombre, mail, alias, pass });
+  if (r.ok) {
+    alertEl.innerHTML = `<div class="alert alert-success">✅ Solicitud enviada. El administrador te aprobará pronto. Alias: <strong>${alias}</strong></div>`;
+  } else {
+    alertEl.innerHTML = `<div class="alert alert-error">❌ ${r.error || 'Error al registrarse'}</div>`;
+  }
+}
+
+async function login() {
+  const mail = document.getElementById('loginMail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  const alertEl = document.getElementById('alertLogin');
+
+  alertEl.innerHTML = '<div class="alert alert-info">Verificando...</div>';
+  const r = await apiPost('login', { mail, pass });
+  if (r.ok) {
+    currentUser = r.user;
+    localStorage.setItem('prode_user', JSON.stringify(currentUser));
+    closeModal('modalLogin');
+    actualizarHeaderLogin();
+    cargarDatos();
+    showSection('partidos');
+  } else {
+    alertEl.innerHTML = `<div class="alert alert-error">❌ ${r.error || 'Datos incorrectos'}</div>`;
+  }
+}
+
+function logout() {
+  currentUser = null;
+  localStorage.removeItem('prode_user');
+  actualizarHeaderLogin();
+  showSection('inicio');
+}
+
+// ============================================================
+// CARGAR DATOS INICIALES
+// ============================================================
+async function cargarDatos() {
+  cargarStats();
+  cargarPodio();
+}
+
+async function cargarStats() {
+  const r = await api('stats');
+  if (r.ok) {
+    document.getElementById('statJugadores').textContent = r.jugadores || '0';
+    document.getElementById('statJugados').textContent = r.jugados || '0';
+    document.getElementById('statLider').textContent = r.lider || '—';
+    actualizarTicker(r.novedades);
+  }
+}
+
+function actualizarTicker(novedades) {
+  if (!novedades || !novedades.length) return;
+  const inner = document.getElementById('tickerInner');
+  const items = [...novedades, ...novedades].map(n => `<span class="ticker-item">${n}</span>`).join('');
+  inner.innerHTML = items;
+}
+
+async function cargarPodio() {
+  const r = await api('tabla');
+  const el = document.getElementById('podioMini');
+  if (!r.ok || !r.tabla || !r.tabla.length) {
+    el.innerHTML = '<div style="color:var(--texto2);font-size:14px;padding:12px">Todavía no hay puntos cargados</div>';
+    return;
+  }
+  const top3 = r.tabla.slice(0, 3);
+  const medallas = ['🥇', '🥈', '🥉'];
+  el.innerHTML = `<div style="display:flex;gap:16px;flex-wrap:wrap">` +
+    top3.map((p, i) => `
+      <div style="background:var(--fondo2);border:1px solid var(--borde);border-radius:10px;padding:20px 28px;text-align:center;flex:1;min-width:140px">
+        <div style="font-size:32px">${medallas[i]}</div>
+        <div style="font-family:'Bebas Neue';font-size:18px;color:var(--amarillo);margin-top:6px">${p.alias}</div>
+        <div style="font-family:'Bebas Neue';font-size:36px;color:var(--verde)">${p.puntos}</div>
+        <div style="font-size:11px;color:var(--texto2);letter-spacing:1px">PUNTOS</div>
+      </div>`).join('') +
+    `</div>`;
+}
+
+// ============================================================
+// MIS PRONÓSTICOS
+// ============================================================
+async function cargarMisPartidos() {
+  const container = document.getElementById('matchesContainer');
+  const footer = document.getElementById('pronosFooter');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div> Cargando partidos...</div>';
+
+  const [rMatches, rMisPronos] = await Promise.all([
+    api('partidos'),
+    api('misPronosticos', { mail: currentUser.mail })
+  ]);
+
+  if (!rMatches.ok) {
+    container.innerHTML = '<div class="alert alert-error">Error cargando partidos</div>'; return;
+  }
+
+  allMatches = rMatches.partidos || [];
+  allPronos = {};
+  if (rMisPronos.ok) {
+    (rMisPronos.pronos || []).forEach(p => { allPronos[p.matchId] = p; });
+  }
+
+  if (!allMatches.length) {
+    container.innerHTML = '<div class="alert alert-info">El administrador todavía no cargó los partidos</div>';
+    return;
+  }
+
+  // Agrupar por grupo
+  const porGrupo = {};
+  allMatches.forEach(m => {
+    const g = m.grupo || 'Sin Grupo';
+    if (!porGrupo[g]) porGrupo[g] = [];
+    porGrupo[g].push(m);
+  });
+
+  // Mostrar usuario
+  const userBarZone = document.getElementById('userBarZone');
+  const misPronosArray = rMisPronos.ok ? (rMisPronos.pronos || []) : [];
+  const completados = misPronosArray.filter(p => p.localGoles !== '' && p.visitGoles !== '').length;
+  userBarZone.innerHTML = `
+    <div class="user-bar">
+      <div>
+        <div class="user-bar-name">⚽ ${currentUser.alias}</div>
+        <div class="user-bar-pts">${currentUser.nombre} · <strong>${currentUser.puntos || 0}</strong> pts</div>
+      </div>
+      <div style="text-align:right;font-size:13px;color:var(--texto2)">
+        ${completados} / ${allMatches.length} pronós cargados
+        <div style="margin-top:4px;background:var(--fondo3);border-radius:4px;height:6px;width:160px;overflow:hidden">
+          <div style="background:var(--verde);height:100%;width:${Math.round(completados/Math.max(allMatches.length,1)*100)}%"></div>
+        </div>
+      </div>
+    </div>`;
+
+  let html = '';
+  const locked = currentUser.status !== 'active';
+
+  Object.entries(porGrupo).forEach(([grupo, partidos]) => {
+    html += `<h2>Grupo ${grupo}</h2>`;
+    partidos.forEach(m => {
+      const prono = allPronos[m.id] || {};
+      const localVal = prono.localGoles !== undefined ? prono.localGoles : '';
+      const visitVal = prono.visitGoles !== undefined ? prono.visitGoles : '';
+      const yaJugado = m.estado === 'jugado';
+      const puntaje = prono.puntos !== undefined ? `<span class="match-result-badge ${getBadgeClass(prono)}">${prono.puntos} pts</span>` : '';
+
+      html += `
+        <div class="match-card${locked || yaJugado ? ' locked' : ''}">
+          <div class="team-name team-local">${m.local}</div>
+          <input type="number" min="0" max="20"
+            class="score-input" id="s_${m.id}_l"
+            value="${localVal}" placeholder="?"
+            ${locked || yaJugado ? 'disabled' : ''}>
+          <div>
+            <div class="score-sep">-</div>
+            <div class="match-meta">${m.fecha || ''}</div>
+          </div>
+          <input type="number" min="0" max="20"
+            class="score-input" id="s_${m.id}_v"
+            value="${visitVal}" placeholder="?"
+            ${locked || yaJugado ? 'disabled' : ''}>
+          <div>
+            <div class="team-name team-visit">${m.visitante}</div>
+            ${puntaje}
+            ${yaJugado && m.golesLocal !== undefined ? `<div class="match-meta" style="color:var(--verde)">Real: ${m.golesLocal}-${m.golesVisit}</div>` : ''}
+          </div>
+        </div>`;
+    });
+  });
+
+  container.innerHTML = html;
+  if (!locked) footer.style.display = 'block';
+  else {
+    document.getElementById('pronos-alert').innerHTML = '<div class="alert alert-info">Tu cuenta está pendiente de aprobación por el administrador</div>';
+  }
+}
+
+function getBadgeClass(prono) {
+  if (!prono || prono.puntos === undefined) return '';
+  if (prono.esExacto) return 'badge-exact';
+  if (prono.acertoGanador) return 'badge-win';
+  if (prono.puntos > 0) return 'badge-goal';
+  return 'badge-miss';
+}
+
+async function guardarPronos() {
+  const btn = document.getElementById('btnGuardar');
+  btn.disabled = true; btn.textContent = '💾 Guardando...';
+
+  const pronos = allMatches.map(m => ({
+    matchId: m.id,
+    local: document.getElementById(`s_${m.id}_l`)?.value ?? '',
+    visita: document.getElementById(`s_${m.id}_v`)?.value ?? ''
+  })).filter(p => p.local !== '' || p.visita !== '');
+
+  const r = await apiPost('guardarPronos', {
+    mail: currentUser.mail,
+    pronos: JSON.stringify(pronos)
+  });
+
+  const alertEl = document.getElementById('pronos-alert');
+  if (r.ok) {
+    alertEl.innerHTML = '<div class="alert alert-success">✅ Pronósticos guardados correctamente</div>';
+  } else {
+    alertEl.innerHTML = `<div class="alert alert-error">❌ ${r.error || 'Error al guardar'}</div>`;
+  }
+  btn.disabled = false; btn.textContent = '💾 Guardar todos mis pronósticos';
+  setTimeout(() => alertEl.innerHTML = '', 4000);
+}
+
+// ============================================================
+// TABLA DE POSICIONES
+// ============================================================
+async function cargarTabla() {
+  const r = await api('tabla');
+  const body = document.getElementById('tablaBody');
+  if (!r.ok || !r.tabla) { body.innerHTML = '<tr><td colspan="7"><div class="loading"><div class="spinner"></div></div></td></tr>'; return; }
+  if (!r.tabla.length) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--texto2)">Todavía no hay puntos</td></tr>'; return; }
+
+  body.innerHTML = r.tabla.map((p, i) => {
+    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
+    return `<tr class="${rankClass}">
+      <td><span class="rank-num">${i + 1}</span></td>
+      <td><span class="team-alias">${p.alias}</span></td>
+      <td style="color:var(--texto2);font-size:13px">${p.nombre}</td>
+      <td><span class="pts">${p.puntos}</span></td>
+      <td style="text-align:center;font-family:'Bebas Neue';font-size:18px;color:var(--amarillo)">${p.exactos || 0}</td>
+      <td style="text-align:center;font-family:'Bebas Neue';font-size:18px;color:var(--verde)">${p.ganadores || 0}</td>
+      <td style="text-align:center;font-family:'Bebas Neue';font-size:18px;color:#64b5f6">${p.goles || 0}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ============================================================
+// PRONÓS DE TODOS
+// ============================================================
+async function cargarPronosTodos() {
+  const container = document.getElementById('pronosContainer');
+  const tabsEl = document.getElementById('pronosTabs');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div> Cargando...</div>';
+
+  const [rMatches, rTodos] = await Promise.all([
+    api('partidos'),
+    api('todosPronosticos')
+  ]);
+
+  if (!rMatches.ok) { container.innerHTML = '<div class="alert alert-error">Error</div>'; return; }
+
+  const matches = rMatches.partidos || [];
+  const todos = rTodos.ok ? rTodos.pronos || {} : {};
+  const jugadores = rTodos.ok ? rTodos.jugadores || [] : [];
+
+  // Agrupar por grupo
+  const grupos = [...new Set(matches.map(m => m.grupo || 'Sin Grupo'))];
+
+  tabsEl.innerHTML = grupos.map((g, i) =>
+    `<button class="tab-btn${i===0?' active':''}" onclick="mostrarGrupoProno('${g}',this)">${g}</button>`
+  ).join('');
+
+  window._matchesByGroup = {};
+  window._todosPronosData = { todos, jugadores, matches };
+  matches.forEach(m => {
+    const g = m.grupo || 'Sin Grupo';
+    if (!window._matchesByGroup[g]) window._matchesByGroup[g] = [];
+    window._matchesByGroup[g].push(m);
+  });
+
+  if (grupos.length) mostrarGrupoProno(grupos[0]);
+}
+
+function mostrarGrupoProno(grupo, btnEl) {
+  document.querySelectorAll('#pronosTabs .tab-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+  else {
+    const tabs = document.querySelectorAll('#pronosTabs .tab-btn');
+    const grupos = [...document.getElementById('pronosTabs').querySelectorAll('.tab-btn')].map(b => b.textContent);
+    const idx = grupos.indexOf(grupo);
+    if (idx >= 0) tabs[idx].classList.add('active');
+  }
+
+  const container = document.getElementById('pronosContainer');
+  const { todos, jugadores, matches } = window._todosPronosData || {};
+  const grupoMatches = window._matchesByGroup?.[grupo] || [];
+
+  if (!jugadores.length) {
+    container.innerHTML = '<div style="color:var(--texto2);padding:20px">No hay pronósticos cargados todavía</div>';
+    return;
+  }
+
+  let html = `<table class="pronos-table"><thead><tr>
+    <th>Partido</th>
+    ${jugadores.map(j => `<th style="text-align:center;min-width:90px">${j.alias}</th>`).join('')}
+    <th style="text-align:center">Real</th>
+  </tr></thead><tbody>`;
+
+  grupoMatches.forEach(m => {
+    html += `<tr>
+      <td style="font-family:'Barlow Condensed';font-size:14px;white-space:nowrap">${m.local} vs ${m.visitante}<br><span style="font-size:11px;color:var(--texto2)">${m.fecha||''}</span></td>`;
+
+    jugadores.forEach(j => {
+      const prono = todos?.[j.mail]?.[m.id];
+      let disp = '—', cls = '';
+      if (prono && prono.localGoles !== '') {
+        disp = `${prono.localGoles}-${prono.visitGoles}`;
+        if (prono.esExacto) cls = 'correct-exact';
+        else if (prono.acertoGanador) cls = 'correct-win';
+        else if (prono.puntos > 0) cls = 'partial';
+        else if (m.estado === 'jugado') cls = 'wrong';
+      }
+      html += `<td class="prono-cell"><span class="prono-score ${cls}">${disp}</span></td>`;
+    });
+
+    const real = m.estado === 'jugado' && m.golesLocal !== undefined
+      ? `<strong style="color:var(--verde)">${m.golesLocal}-${m.golesVisit}</strong>`
+      : `<span style="color:var(--borde)">—</span>`;
+    html += `<td class="prono-cell">${real}</td></tr>`;
+  });
+
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+// ============================================================
+// GRUPOS Y RESULTADOS
+// ============================================================
+async function cargarGrupos() {
+  const r = await api('partidos');
+  const container = document.getElementById('gruposContainer');
+  if (!r.ok) { container.innerHTML = '<div class="alert alert-error">Error</div>'; return; }
+
+  const matches = r.partidos || [];
+  if (!matches.length) { container.innerHTML = '<div style="color:var(--texto2);padding:20px">No hay partidos cargados</div>'; return; }
+
+  const porGrupo = {};
+  matches.forEach(m => {
+    const g = m.grupo || 'Sin Grupo';
+    if (!porGrupo[g]) porGrupo[g] = [];
+    porGrupo[g].push(m);
+  });
+
+  container.innerHTML = Object.entries(porGrupo).map(([grupo, partidos]) => `
+    <div class="grupo-card">
+      <div class="grupo-header">Grupo ${grupo}</div>
+      <div class="grupo-body">
+        ${partidos.map(m => `
+          <div class="grupo-match">
+            <div>
+              <div class="gm-teams">${m.local} vs ${m.visitante}</div>
+              <div class="gm-date">${m.fecha || ''}</div>
+            </div>
+            <div class="gm-score${m.estado !== 'jugado' ? ' pending' : ''}">
+              ${m.estado === 'jugado' && m.golesLocal !== undefined ? `${m.golesLocal} - ${m.golesVisit}` : 'vs'}
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ============================================================
+// ADMIN
+// ============================================================
+async function cargarAdmin() {
+  if (!currentUser?.isAdmin) {
+    document.getElementById('adminContent').innerHTML = '<div class="alert alert-error">No tenés permisos de administrador</div>';
+    return;
+  }
+  adminTab(currentAdminTab);
+}
+
+function adminTab(tab) {
+  currentAdminTab = tab;
+  document.querySelectorAll('#sec-admin .tab-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase().includes(tab.substring(0,4)));
+  });
+
+  if (tab === 'usuarios') cargarAdminUsuarios();
+  if (tab === 'resultados') cargarAdminResultados();
+  if (tab === 'recalcular') cargarAdminRecalcular();
+}
+
+async function cargarAdminUsuarios() {
+  const content = document.getElementById('adminContent');
+  content.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+  const r = await api('adminUsuarios', { adminMail: currentUser.mail });
+  if (!r.ok) { content.innerHTML = `<div class="alert alert-error">${r.error}</div>`; return; }
+
+  const usuarios = r.usuarios || [];
+  content.innerHTML = `
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr>
+          <th>Nombre</th><th>Mail</th><th>Alias (Equipo)</th>
+          <th>Estado</th><th>Acciones</th>
+        </tr></thead>
+        <tbody>
+          ${usuarios.map(u => `
+            <tr>
+              <td>${u.nombre}</td>
+              <td style="font-size:12px;color:var(--texto2)">${u.mail}</td>
+              <td><strong style="color:var(--amarillo)">${u.alias}</strong></td>
+              <td><span class="status-badge status-${u.status}">${u.status === 'active' ? 'Activo' : u.status === 'pending' ? 'Pendiente' : 'Rechazado'}</span></td>
+              <td>
+                <div class="admin-actions">
+                  ${u.status !== 'active' ? `<button class="btn btn-green btn-sm" onclick="aprobarUser('${u.mail}')">✅ Aprobar</button>` : ''}
+                  ${u.status === 'active' ? `<button class="btn btn-outline btn-sm" onclick="rechazarUser('${u.mail}')">🚫 Desactivar</button>` : ''}
+                </div>
+              </td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+async function aprobarUser(mail) {
+  const r = await apiPost('aprobarUsuario', { adminMail: currentUser.mail, targetMail: mail, status: 'active' });
+  if (r.ok) cargarAdminUsuarios();
+  else alert('Error: ' + r.error);
+}
+async function rechazarUser(mail) {
+  const r = await apiPost('aprobarUsuario', { adminMail: currentUser.mail, targetMail: mail, status: 'inactive' });
+  if (r.ok) cargarAdminUsuarios();
+  else alert('Error: ' + r.error);
+}
+
+async function cargarAdminResultados() {
+  const content = document.getElementById('adminContent');
+  content.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+  const r = await api('partidos');
+  if (!r.ok) { content.innerHTML = `<div class="alert alert-error">${r.error}</div>`; return; }
+
+  const matches = r.partidos || [];
+
+  content.innerHTML = `
+    <div class="alert alert-info">Cargá los resultados reales de los partidos jugados. Después usá "Recalcular" para actualizar los puntajes.</div>
+    <div id="resultadosForm">
+      ${matches.map(m => `
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--borde);flex-wrap:wrap">
+          <div style="flex:1;min-width:200px;font-family:'Barlow Condensed';font-size:15px;font-weight:700">${m.local} vs ${m.visitante}</div>
+          <div style="font-size:12px;color:var(--texto2);min-width:100px">${m.fecha||''} · Grupo ${m.grupo||'?'}</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <input type="number" min="0" max="20" class="score-input" style="width:44px;font-size:22px" id="res_${m.id}_l" value="${m.golesLocal??''}" placeholder="?">
+            <span class="score-sep">-</span>
+            <input type="number" min="0" max="20" class="score-input" style="width:44px;font-size:22px" id="res_${m.id}_v" value="${m.golesVisit??''}" placeholder="?">
+          </div>
+          <button class="btn btn-green btn-sm" onclick="guardarResultado('${m.id}')">Guardar</button>
+          ${m.estado === 'jugado' ? '<span class="status-badge status-active">✓ Cargado</span>' : ''}
+        </div>`).join('')}
+    </div>`;
+}
+
+async function guardarResultado(matchId) {
+  const l = document.getElementById(`res_${matchId}_l`).value;
+  const v = document.getElementById(`res_${matchId}_v`).value;
+  if (l === '' || v === '') { alert('Completá ambos goles'); return; }
+
+  const r = await apiPost('cargarResultado', {
+    adminMail: currentUser.mail, matchId, golesLocal: l, golesVisit: v
+  });
+  if (r.ok) { alert('✅ Resultado guardado'); cargarAdminResultados(); }
+  else alert('Error: ' + r.error);
+}
+
+async function cargarAdminRecalcular() {
+  const content = document.getElementById('adminContent');
+  content.innerHTML = `
+    <div class="alert alert-info">Esto recalcula todos los puntajes de todos los jugadores basándose en los resultados cargados.</div>
+    <button class="btn btn-yellow" onclick="recalcularPuntajes()">⚡ Recalcular todos los puntajes</button>
+    <div id="recalcResult" style="margin-top:16px"></div>`;
+}
+
+async function recalcularPuntajes() {
+  document.getElementById('recalcResult').innerHTML = '<div class="loading"><div class="spinner"></div> Calculando...</div>';
+  const r = await apiPost('recalcular', { adminMail: currentUser.mail });
+  if (r.ok) {
+    document.getElementById('recalcResult').innerHTML = `<div class="alert alert-success">✅ Puntajes actualizados correctamente. ${r.msg || ''}</div>`;
+  } else {
+    document.getElementById('recalcResult').innerHTML = `<div class="alert alert-error">❌ ${r.error}</div>`;
+  }
+}
+</script>
+</body>
+</html>
